@@ -27,7 +27,7 @@ func NewConnection(uri string) (*mongo.Client, error) {
 		}
 	}()
 
-	log.Infof("Mongo Connection Sucesss to %s", env.URL)
+	log.Infof("Mongo Connection Success to %s", env.URL)
 
 	return client, nil
 }
