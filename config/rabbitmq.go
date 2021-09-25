@@ -13,7 +13,7 @@ type RabbitMQConfig struct {
 
 func ReadRabbitMQConfig() *RabbitMQConfig {
 
-	urlValue := getEnvVariableAsString(constants.RabbitURL)
+	urlValue := getEnvVariableAsString(constants.EnvironmentVariables.RABBIT_URL)
 	return &RabbitMQConfig{
 		URL: urlValue,
 	}

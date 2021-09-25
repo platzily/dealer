@@ -10,7 +10,7 @@ type MongoDBConfig struct {
 
 func ReadMongoDBConfig() *MongoDBConfig {
 
-	urlValue := getEnvVariableAsString(constants.MongoURL)
+	urlValue := getEnvVariableAsString(constants.EnvironmentVariables.MONGO_URL)
 	return &MongoDBConfig{
 		URL: urlValue,
 	}

@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/platzily/dealer/config/mongodb"
+	"github.com/platzily/dealer/config"
 	log "github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -12,10 +12,10 @@ import (
 
 func NewConnection(uri string) (*mongo.Client, error) {
 
-	url := mongodb.ReadMongoDBConfig()
+	env := config.ReadMongoDBConfig()
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	client, err := mongo.Connect(ctx, options.Client().ApplyURI(url))
+	client, err := mongo.Connect(ctx, options.Client().ApplyURI(env.URL))
 
 	if err != nil {
 		log.Fatalf("Failed to connect to MongoDB: %s", err)
@@ -27,7 +27,7 @@ func NewConnection(uri string) (*mongo.Client, error) {
 		}
 	}()
 
-	log.Infof("Mongo Connection Sucesss to %s", url)
+	log.Infof("Mongo Connection Sucesss to %s", env.URL)
 
 	return client, nil
 }
