@@ -5,13 +5,16 @@ import (
 )
 
 type MongoDBConfig struct {
-	URL string
+	URL      string
+	Database string
 }
 
 func ReadMongoDBConfig() *MongoDBConfig {
 
 	urlValue := getEnvVariableAsString(constants.EnvironmentVariables.MONGO_URL)
+	databaseName := getEnvVariableAsString(constants.EnvironmentVariables.MONGO_DATABASE)
 	return &MongoDBConfig{
-		URL: urlValue,
+		URL:      urlValue,
+		Database: databaseName,
 	}
 }

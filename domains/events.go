@@ -1,12 +1,12 @@
 package domains
 
 type Event struct {
-	Id      int64
-	Type    string
-	Payload interface{}
-	Sender  string
-	State   string
-	history []Event
+	ID      int64       `bson:"_id,omitempty"`
+	Type    string      `bson:"type,omitempty"`
+	Payload interface{} `bson:"payload,omitempty"`
+	Sender  string      `bason:"sender,omitempty"`
+	State   string      `bson:"state,omitempty"`
+	history []Event     `bson:"history"`
 }
 
 type EventModel interface {
