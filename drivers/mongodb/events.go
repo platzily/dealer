@@ -53,7 +53,7 @@ func (er *EventRepository) GetById(id int64) (domains.Event, error) {
 	collection := er.conn.Database(env.Database).Collection(EVENTS_COLLECTION)
 
 	var result domains.Event
-	err := collection.FindOne(ctxOperation, bson.D{{"_id", id}}).Decode(&result)
+	err := collection.FindOne(ctxOperation, bson.M{"_id": id}).Decode(&result)
 
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
@@ -78,7 +78,8 @@ func (er *EventRepository) UpdateById(id int64, state string) error {
 		State:     state,
 		CreatedAt: time.Now(),
 	}
-	_, err := collection.UpdateByID(ctxOperation, id, newEventState)
+
+	_, err := collection.UpdateByID(ctxOperation, id, bson.M{"$set": newEventState})
 
 	if err != nil {
 		log.Errorf("Error updating event: %s with err %v", id, err)

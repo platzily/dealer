@@ -3,12 +3,12 @@ package domains
 import "time"
 
 type Event struct {
-	ID        int64               `bson:"_id,omitempty"`
+	ID        int64               `bson:"_id"`
 	Type      string              `bson:"type,omitempty"`
 	Payload   interface{}         `bson:"payload,omitempty"`
 	Sender    string              `bason:"sender,omitempty"`
 	State     string              `bson:"state,omitempty"`
-	history   []EventStateHistory `bson:"history"`
+	History   []EventStateHistory `bson:"history"`
 	CreatedAt time.Time           `bson:"created_at,omitempty"`
 	UpdatedAt time.Time           `bson:"updated_at,omitempty"`
 }
