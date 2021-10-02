@@ -66,3 +66,24 @@ func (er *EventRepository) GetById(id int64) (domains.Event, error) {
 
 	return result, nil
 }
+
+func (er *EventRepository) UpdateById(id int64, state string) error {
+
+	ctxOperation, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	collection := er.conn.Database(env.Database).Collection(EVENTS_COLLECTION)
+
+	newEventState := domains.EventStateHistory{
+		State:     state,
+		CreatedAt: time.Now(),
+	}
+	_, err := collection.UpdateByID(ctxOperation, id, newEventState)
+
+	if err != nil {
+		log.Errorf("Error updating event: %s with err %v", id, err)
+		return err
+	}
+
+	return nil
+}
