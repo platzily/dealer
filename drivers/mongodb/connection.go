@@ -21,12 +21,6 @@ func NewConnection(uri string) *mongo.Client {
 		log.Fatalf("Failed to connect to MongoDB: %s", err)
 	}
 
-	// defer func() {
-	// 	if err = client.Disconnect(ctx); err != nil {
-	// 		log.Fatalf("Failed disconnecting MongoDB connection: %s", err)
-	// 	}
-	// }()
-
 	log.Infof("Mongo Connection Success to %s", env.URL)
 
 	return client
