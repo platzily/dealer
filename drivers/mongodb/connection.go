@@ -10,7 +10,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func NewConnection(uri string) (*mongo.Client, error) {
+func NewConnection(uri string) *mongo.Client {
 
 	env := config.ReadMongoDBConfig()
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -21,13 +21,7 @@ func NewConnection(uri string) (*mongo.Client, error) {
 		log.Fatalf("Failed to connect to MongoDB: %s", err)
 	}
 
-	defer func() {
-		if err = client.Disconnect(ctx); err != nil {
-			log.Fatalf("Failed disconnecting MongoDB connection: %s", err)
-		}
-	}()
-
 	log.Infof("Mongo Connection Success to %s", env.URL)
 
-	return client, nil
+	return client
 }
