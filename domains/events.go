@@ -23,3 +23,8 @@ type EventModel interface {
 	GetById(id int64) (Event, error)
 	UpdateById(id int64, state string) error
 }
+
+type EventQueue interface {
+	Subscribe(eventType string, callback func()) error
+	Publish(event Event) error
+}
